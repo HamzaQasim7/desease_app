@@ -1,0 +1,1 @@
+enum ResponseStatus { LOADING, COMPLETED, ERROR }
