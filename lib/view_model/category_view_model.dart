@@ -1,13 +1,11 @@
 import 'package:flutter/foundation.dart';
-
-import 'package:test_app/model/user_profile_model.dart';
+import 'package:test_app/model/category_model.dart';
 import 'package:test_app/repository/auth_repository.dart';
 
-class UserProfileViewModel extends ChangeNotifier {
+class CategoryViewModel extends ChangeNotifier {
+  List<CategoryModel>? _categoryItems;
 
-  UserProfileModel? _userProfile;
-
-  UserProfileModel? get userProfile => _userProfile;
+  List<CategoryModel>? get categoryItems => _categoryItems;
 
   bool _isLoading = false;
 
@@ -17,10 +15,12 @@ class UserProfileViewModel extends ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
-  Future<void> fetchUserProfile() async {
+
+  Future<void> fetchCategoryItems() async {
     try {
-      final response = await AppRepository().getUserProfile();
-      _userProfile = response;
+      final response = await AppRepository().getCategoryItem();
+
+      _categoryItems = response;
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -31,4 +31,3 @@ class UserProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 }
-

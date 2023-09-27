@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/resources/app_colors.dart';
-import 'package:test_app/utilities/routes/route_name.dart';
-import 'package:test_app/utilities/routes/routes.dart';
 import 'package:test_app/view/bottom_nav_bar.dart';
+import 'package:test_app/view_model/category_view_model.dart';
 import 'package:test_app/view_model/slider_view_model.dart';
 import 'package:test_app/view_model/sub_user_view_model.dart';
 import 'package:test_app/view_model/user_profile_view_model.dart';
@@ -21,6 +20,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => UserProfileViewModel()),
           ChangeNotifierProvider(create: (_) => SliderItemViewModel()),
           ChangeNotifierProvider(create: (_) => SubUserViewModel()),
+          ChangeNotifierProvider(create: (_) => CategoryViewModel()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

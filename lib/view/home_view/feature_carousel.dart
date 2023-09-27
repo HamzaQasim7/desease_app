@@ -43,14 +43,14 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
                 }
                 final item = sliderProvider.sliderItem![index];
                 final imageUrl = item.image;
-                // final link = item.link;
+                final link = item.link;
 
                 return GestureDetector(
                   onTap: () {
                     // Handle tapping on the carousel item here
                     // You can navigate to the link or perform some action.
-                    // if (link != null && link.isNotEmpty) {
-                    //   launch(link);
+                    // if (link.isNotEmpty) {
+                    //   link;
                     // }
                   },
                   child: Image.network(

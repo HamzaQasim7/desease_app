@@ -12,8 +12,8 @@ class SliderItemModel {
   factory SliderItemModel.fromJson(Map<String, dynamic> json) {
     return SliderItemModel(
       id: json['id'] as int,
-      image: json['image'] ?? '',
-      link: json['link'] ?? "",
+      image: json['image'] as String,
+      link: json['link'] as String,
     );
   }
 

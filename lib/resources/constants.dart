@@ -12,7 +12,7 @@ final kH0Text=GoogleFonts.montserrat(textStyle: const TextStyle(
   color: AppColors.whiteColor
 ));
 final kH2Text=GoogleFonts.montserrat(textStyle: const TextStyle(
-  fontSize: 12,
+  fontSize: 11,
   fontWeight: FontWeight.w500,
 ));
 final kH3Text=GoogleFonts.montserrat(textStyle: const TextStyle(
@@ -25,3 +25,11 @@ final kH4Text=GoogleFonts.montserrat(textStyle: const TextStyle(
     fontWeight: FontWeight.w400,
     color: AppColors.whiteColor
 ));
+
+final kProfileOutline=BoxDecoration(
+  shape: BoxShape.circle,
+  border: Border.all(
+    color: AppColors.whiteColor,
+    width: 2, // Set the border width
+  ),
+);
