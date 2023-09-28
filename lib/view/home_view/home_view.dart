@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:test_app/resources/app_colors.dart';
 import 'package:test_app/resources/component/search_text_field.dart';
 import 'package:test_app/resources/constants.dart';
@@ -9,8 +8,6 @@ import 'package:test_app/view/home_view/feature_carousel.dart';
 import 'package:test_app/view/home_view/user_greeting.dart';
 import 'package:test_app/view/home_view/user_profile_builder.dart';
 import 'package:test_app/view/home_view/users.dart';
-import 'package:test_app/view_model/category_view_model.dart';
-import 'package:test_app/view_model/user_profile_view_model.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -57,8 +54,8 @@ class _HomeViewState extends State<HomeView> {
               child: Opacity(
                 opacity: 0.5,
                 child: Image(
-                  width: 100,
-                  height: 100,
+                  width: 110,
+                  height: 110,
                   fit: BoxFit.cover,
                   image: AssetImage('assets/bottomRight.png'),
                 ),
@@ -76,40 +73,14 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          Positioned(
-              top: 70,
-              left: 10,
-              right: 10,
+          SafeArea(
+            child: Padding(
+              padding:  const EdgeInsets.symmetric(horizontal: 10.0, ),
               child: SingleChildScrollView(
                 child: Column(
+                  // mainAxisSize: MainAxisSize.min,
                   children: [
-                    Consumer<UserProfileViewModel>(
-                      builder: (context, userProfileProvider, child) {
-                        if (!userProfileProvider.isLoading &&
-                            userProfileProvider.userProfile == null) {
-                          userProfileProvider.fetchUserProfile();
-                        }
-                        if (userProfileProvider.isLoading) {
-                          // Display a loading indicator while data is being fetched
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 1,
-                            ),
-                          );
-                        } else if (userProfileProvider.userProfile == null) {
-                          return Text(
-                            'User!',
-                            style: kH1Text,
-                          );
-                        } else if (userProfileProvider.userProfile != null) {
-                          return UserGreetings(
-                              user: userProfileProvider.userProfile!.user.name
-                                  .toString());
-                        } else {
-                          return Container();
-                        }
-                      },
-                    ),
+                    const UserName(),
                     const SizedBox(height: 8),
                     const FeatureCarousel(),
                     const SizedBox(height: 8),
@@ -132,6 +103,7 @@ class _HomeViewState extends State<HomeView> {
                                   builder: (context) => const CategoryView()));
                         },
                         string: 'Search'),
+                    SizedBox(height: height*.02,),
                     SizedBox(
                       width: width * 0.95,
                       height: height * 0.05,
@@ -157,59 +129,17 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Consumer<CategoryViewModel>(
-                      builder: (context, categoryProviderModel, child) {
-                        if (!categoryProviderModel.isLoading &&
-                            categoryProviderModel.categoryItems == null) {
-                          categoryProviderModel.fetchCategoryItems();
-                        }
-                        return categoryProviderModel.isLoading
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                  color: AppColors.primaryColor,
-                                  strokeWidth: 1.5,
-                                ),
-                              )
-                            : categoryProviderModel.categoryItems == null
-                                ? const Center(
-                                    child: Text('No Results Found'),
-                                  )
-                                : SizedBox(
-                          width: width,
-                                  child: GridView.builder(
-                                    shrinkWrap: true,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3, // 3 items per row
-                                      crossAxisSpacing: 5.0,
-                                      mainAxisSpacing: 10.0,
-                                    ),
-                                    itemCount: 6,
-                                    itemBuilder: (context, index) {
-                                      // Ensure that the index is within the category items list length
-                                      if (index <
-                                          categoryProviderModel
-                                              .categoryItems!.length) {
-                                        final item = categoryProviderModel
-                                            .categoryItems![index];
-                                        return CategoryContainer(
-                                          title: item.title.toString(),
-                                          imgUrl: item.image.toString(),
-                                        );
-                                      } else {
-                                        return const SizedBox(); // Placeholder for empty cells
-                                      }
-                                    },
-                                  ),
-                                );
-                      },
-                    )
+                     SizedBox(height: height*.05,),
+                     const CategoryList()
                   ],
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
+
